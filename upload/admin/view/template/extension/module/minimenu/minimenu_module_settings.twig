@@ -1,0 +1,47 @@
+<h3>{{ text_module_settings }}</h3>
+
+<div class="form-group">
+    <label class="col-sm-3 control-label" for="name">{{ entry_name }}</label>
+    <div class="col-sm-9">
+        <input type="text" name="name" value="{{ name }}" id="name" class="form-control"/>
+    </div>
+</div>
+
+{% if stores is empty %}
+    <input type="hidden" name="store_id" value="0"/>
+{% else %}
+    <div class="form-group">
+        <label class="col-sm-3 control-label" for="minimenu-stores">{{ entry_store }}</label>
+        <div class="col-sm-9">
+            <select class="form-control pull-right" name="store_id" id="minimenu-stores">
+                {% for store in stores %}
+                    {% if store.store_id == store_id %}
+                        <option value="{{ store.store_id }}" selected="selected">{{ store.name }}</option>
+                    {% else %}
+                        <option value="{{ store.store_id }}">{{ store.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+{% endif %}
+<div class="form-group">
+    <label class="col-sm-3 control-label" for="input-status">{{ entry_status }}</label>
+    <div class="col-sm-9">
+        <select name="status" id="input-status" class="form-control">
+            {% if status %}
+                <option value="1" selected="selected">{{ text_enabled }}</option>
+                <option value="0">{{ text_disabled }}</option>
+            {% else %}
+                <option value="1">{{ text_enabled }}</option>
+                <option value="0" selected="selected">{{ text_disabled }}</option>
+            {% endif %}
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-3 control-label" for="burger-text">{{ entry_burger_text }}</label>
+    <div class="col-sm-9">
+        <input type="text" name="burger_text" value="{{ burger_text }}" id="burger-text" class="form-control"/>
+    </div>
+</div>
