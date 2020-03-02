@@ -1,3 +1,7 @@
+.tree-minimenu a.btn {
+    padding: 8px;
+}
+
 .quickdel {
     background: url(../image/filemanager/edit-delete.png) no-repeat center center;
 }
