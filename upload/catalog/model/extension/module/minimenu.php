@@ -67,9 +67,6 @@ class ModelExtensionModuleMinimenu extends Model
      */
     public function getTree($parent = 0, $store_id = 0, $module_id = 0)
     {
-
-        if ($this->output !== false) return $this->output;
-
         $this->getChild(null, $store_id, $module_id);
 
         if ($this->request->server['HTTPS']) {
