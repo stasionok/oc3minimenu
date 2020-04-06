@@ -27,14 +27,14 @@ class ControllerExtensionModuleMinimenu extends Controller
         $this->data['module_id'] = $setting['module_id'];
         $this->data['burger_text'] = html_entity_decode($setting['burger_text']);
 
-        if (!self::$MINIMENU) {
+        if (!self::$MINIMENU[$setting['module_id']]) {
             $current = [
                 'host' => $this->request->server['SERVER_NAME'],
                 'uri' => $this->request->server['REQUEST_URI']
             ];
-            self::$MINIMENU = $this->model_extension_module_minimenu->getTree($parent = 0, $setting['store_id'], $setting['module_id'], $current);
+            self::$MINIMENU[$setting['module_id']] = $this->model_extension_module_minimenu->getTree($parent = 0, $setting['store_id'], $setting['module_id'], $current);
         }
-        $this->data['treemenu'] = self::$MINIMENU;
+        $this->data['treemenu'] = self::$MINIMENU[$setting['module_id']];
 
         $template = 'extension/module/minimenu';
 
