@@ -96,8 +96,10 @@ class ModelExtensionModuleMinimenu extends Model
                 '<ul class="nav navbar-nav">' :
                 '<ul class="dropdown-menu level' . $level . '">';
             foreach ($data as $menu) {
+                $menu['menu_class'] = trim($menu['menu_class']);
+                $menu['menu_class'] = !empty($menu['menu_class']) ? ' ' . $menu['menu_class'] : '';
                 if ($this->hasChild($menu['item_id'])) {
-                    $output .= '<li class="menu-item dropdown dropdown-submenu ' . $menu['menu_class'] . '">';
+                    $output .= '<li class="menu-item dropdown dropdown-submenu' . $menu['menu_class'] . '">';
                     $output .= '<a class="dropdown-toggle" href="' . $this->getLink($menu) . '" data-toggle="dropdown">';
                     $output .= $this->menuItemContent($menu);
                     $output .= '<b class="caret"></b>';
@@ -105,13 +107,16 @@ class ModelExtensionModuleMinimenu extends Model
                     $output .= $this->makeMenu($menu['item_id'], $level + 1);
                     $output .= '</li>';
                 } elseif ($menu['type'] == 'html') {
-                    $output .= '<li class="menu-content content-html menu-item ' . $menu['menu_class'] . '">';
+                    $output .= '<li class="menu-content content-html menu-item' . $menu['menu_class'] . '">';
                     $output .= $this->menuItemContent($menu);
                     $output .= html_entity_decode($parent['content_text']);
                     $output .= '</li>';
                 } else {
-                    $output .= '<li class="menu-item ' . $menu['menu_class'] . '">';
-                    $output .= '<a href="' . $this->getLink($menu) . '">';
+                    $url = $this->getLink($menu);
+                    $active = ($url == $this->activeUrl['uri'] OR
+                        $url == $this->activeUrl['host'] . $this->activeUrl['uri']) ? ' active' : '';
+                    $output .= '<li class="menu-item' . $menu['menu_class'] . $active . '">';
+                    $output .= '<a href="' . $url . '">';
                     $output .= $this->menuItemContent($menu);
                     $output .= '</a></li>';
                 }
