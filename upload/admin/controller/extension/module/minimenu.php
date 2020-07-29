@@ -342,7 +342,7 @@ class ControllerExtensionModuleMinimenu extends Controller
 
             $languageId = (int)$this->config->get('config_language_id');
             $d = isset($this->request->post['minimenu_description'][$languageId]['title']) ? $this->request->post['minimenu_description'][$languageId]['title'] : "";
-            if (empty($d)) {
+            if (empty($d) && $this->request->post['save_mode'] != 'import-categories') {
                 $this->error['warning'] = $this->language->get('error_missing_title');
             }
 
