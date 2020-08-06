@@ -110,8 +110,8 @@ class ModelExtensionModuleMinimenu extends Model
                     $output .= '</li>';
                 } else {
                     $url = $this->getLink($menu);
-                    $active = ($url == $this->activeUrl['uri'] OR
-                        $url == $this->activeUrl['host'] . $this->activeUrl['uri']) ? ' active' : '';
+                    $uri    = trim( HTTP_SERVER, '/' ) . $_SERVER['REQUEST_URI'];
+					$active = $url == $uri ? ' active' : '';
                     $output .= '<li class="menu-item' . $menu['menu_class'] . $active . '">';
                     $output .= '<a href="' . $url . '">';
                     $output .= $this->menuItemContent($menu);
