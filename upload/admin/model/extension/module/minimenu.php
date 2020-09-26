@@ -339,11 +339,12 @@ class ModelExtensionModuleMinimenu extends Model
         }
     }
 
-    public function checkExitItemMenu($category, $store_id)
+    public function checkExitItemMenu($category, $store_id, $module_id)
     {
         $query = $this->db->query("SELECT item_id FROM " . DB_PREFIX . "minimenu 
             WHERE store_id = " . $store_id . " 
               AND `type`='category' 
+			  AND module_id = " . $module_id . "
               AND item=" . $category['category_id']);
         return $query->num_rows;
     }
@@ -385,7 +386,7 @@ class ModelExtensionModuleMinimenu extends Model
         foreach ($query->rows as &$category) {
             $category['language'] = $this->model_catalog_category->getCategoryDescriptions($category['category_id']);
 
-            if ($this->checkExitItemMenu($category, $store_id) == 0) {
+            if ($this->checkExitItemMenu($category, $store_id, $module_id) == 0) {
                 $minimenu_parent_id = 0;
                 if ((int)$category['parent_id'] > 0) {
                     $query1 = $this->db->query("SELECT item_id FROM " . DB_PREFIX . "minimenu WHERE store_id = " . $store_id . " AND `type`='category' AND item='" . $category['parent_id'] . "'");
